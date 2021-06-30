@@ -15,9 +15,24 @@
 
 // ==/UserScript==
 
+// 配置区域
+unsafeWindow.Show = function(data){
+	var i = 0
+    console.log(data)
+	var datas = []
+
+    //模板
+    var showtemplate = [
+        ["总学分",164,data.XueFen.ALL],
+	]
+
+	app.datas = showtemplate
+	app.notice()
+}
+
+
 
 GM_addStyle(GM_getResourceText("css"));
-
 var root = '<div id="app" style="margin-buttom:10px margin-top:10px">'
 root += '<p><font color = "green">统计将会显示在这里</font></p>'
 root += '<h-circle style="margin-right:10px margin-top:10px" v-for="one in datas" :percent="one[2]/one[1] * 100" :stroke-width="12" :size="100">'
@@ -25,9 +40,7 @@ root += '<h-circle style="margin-right:10px margin-top:10px" v-for="one in datas
 root += '<p class="gray-color"><span v-font="3">{{one[0]}}</span></p>'
 root += '<p class="gray-color"><span class="primary-color" v-font="3">{{one[2]}}</span><span v-font="3">/{{one[1]}}</span></p>'
 root += '</h-circle></div>'
-
 $("#dataList").before(root)
-
 unsafeWindow.app = new Vue({
 	el: '#app',
 	data: {
@@ -39,7 +52,6 @@ unsafeWindow.app = new Vue({
 		}
 	}
 })
-
 
 unsafeWindow.JsMod = function (htmlurl,tmpWidth,tmpHeight){
 	htmlurl=getRandomUrl(htmlurl);
@@ -61,6 +73,7 @@ unsafeWindow.JsMod = function (htmlurl,tmpWidth,tmpHeight){
 unsafeWindow.getSUM = function(data,key){
 	var i = 0
 	var sum = 0
+    if(!key){key = "XueFen"}
 	for(i = 0;i < data.length;i++){
 		sum += parseFloat(data[i][key])
 	}
@@ -109,7 +122,7 @@ unsafeWindow.analize = function(data){
 
 	var i = 0
 	var res = {XueFen:{}}
-	res.XueFen.ALL= getSUM(data,'XueFen')
+	res.XueFen.ALL= getSUM(data)
 	res.XueFen.Must= 0
     // ##### 不及格的项目还未统计
 	for(i = 0; i< data.length;i++){
@@ -152,57 +165,26 @@ unsafeWindow.analize = function(data){
 			XueFen:{
 				Must:res.XueFen.Must,
 				ALL:res.XueFen.ALL,
+                A:getSUM(A),
+                B:getSUM(B),
+                C:getSUM(C),
+                D:getSUM(D),
+                E:getSUM(E),
+                F:getSUM(F),
+                G:getSUM(G)
 			},
 		}
-
 	for(i = 0; i< data.length;i++){
 		if(!res.XueFen[data[i].Type]){
 			res.XueFen[data[i].Type] = 0
+            res[data[i].Type] = []
 		}
 		res.XueFen[data[i].Type] += parseFloat((data[i].XueFen))
+        res[data[i].Type].push(data[i])
 	}
-	res.XueFen["G"] = getSUM(G,"XueFen")
+	res.XueFen["TongShi"] = getSUM(A) + getSUM(B) + getSUM(C) + getSUM(D) + getSUM(E) + getSUM(F) + getSUM(G)
 	return res
 }
 
 
-unsafeWindow.Show = function(data,showtemplate){
-	var i = 0
-	var datas = []
-    if(!showtemplate){
-	    showtemplate = [
-		["总学分",164,data.XueFen.ALL],
-		["必修课程学分",164,data.XueFen.Must],
-		['专业选修课学分',15,data.XueFen['19专业选修课程']],
-        ['专业核心课学分',26.5,data.XueFen['19专业核心课程']],
-		["其他专业课程",1,0],
-		['通识教育课程',12,getSUM(data.A,"XueFen") + getSUM(data.B,"XueFen") + getSUM(data.C,"XueFen") + getSUM(data.D,"XueFen") + getSUM(data.E,"XueFen") + getSUM(data.F,"XueFen")+ getSUM(data.G,"XueFen")],
-		['A_C类总学分',6,getSUM(data.A,"XueFen") + getSUM(data.B,"XueFen") + getSUM(data.C,"XueFen")],
-		["B类总学分",1,getSUM(data.B,"XueFen")],
-		["F类总学分",2,getSUM(data.F,"XueFen")],
-        ["G类课程数",1,data.G.length]
-	]}
-    console.log(showtemplate)
-	app.datas = showtemplate
-	app.notice()
-}
-
-unsafeWindow.Setting = function(){
-    var setting = {
-		template:[
-        ["总学分",164,data.XueFen.ALL],
-		["必修课程学分",164,data.XueFen.Must],
-		['专业选修课学分',15,data.XueFen['19专业选修课程']],
-        ['专业核心课学分',26.5,data.XueFen['19专业核心课程']],
-		["其他专业课程",1,0],
-		['通识教育课程',12,getSUM(data.A,"XueFen") + getSUM(data.B,"XueFen") + getSUM(data.C,"XueFen") + getSUM(data.D,"XueFen") + getSUM(data.E,"XueFen") + getSUM(data.F,"XueFen")+ getSUM(data.G,"XueFen")],
-		['A_C类总学分',6,getSUM(data.A,"XueFen") + getSUM(data.B,"XueFen") + getSUM(data.C,"XueFen")],
-		["B类总学分",1,getSUM(data.B,"XueFen")],
-		["F类总学分",2,getSUM(data.F,"XueFen")],
-        ["G类课程数",1,data.G.length]
-	]}
-
-    return setting
-}
-
-Show(analize(getData()),Setting.template)
+Show(analize(getData()))
