@@ -158,7 +158,7 @@ unsafeWindow.Show = function(data){
 
 你应该能够看明白模板的大致内容了，但是注意最后一行模板**`["G类课程数",1,data.G.length]`**
 
-这里涉及到data结构，如果你想获取某个课程的数量模仿**`data.G.length`**获取
+这里涉及到data结构，如果你想获取某个课程的数量，模仿**`data.G.length`**获取
 
 ```javascript
 G可以替换A-G
