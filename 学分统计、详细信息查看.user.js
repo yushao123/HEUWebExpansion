@@ -54,8 +54,8 @@ unsafeWindow.app = new Vue({
 })
 
 unsafeWindow.JsMod = function (htmlurl,tmpWidth,tmpHeight){
-	htmlurl=getRandomUrl(htmlurl);
-    htmlurl = "http://edusys.hrbeu.edu.cn" + htmlurl
+    htmlurl=getRandomUrl(htmlurl);
+    htmlurl = `https://${document.domain}` + htmlurl
     var root = ""
     root += `<iframe src = ${htmlurl} height = "100%" width = "100%" style="border: medium none;"></iframe>`
     app.$Modal({
