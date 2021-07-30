@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         学分统计、详细信息查看
 // @namespace    http://www.yushao.xyz/
-// @version      1.1
-// @description  try to take over the world!
+// @version      1.5
+// @description  让你的HEU更好用
 // @author       Yusho
 // @match        *://*.hrbeu.edu.cn/*/cjcx_list
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
