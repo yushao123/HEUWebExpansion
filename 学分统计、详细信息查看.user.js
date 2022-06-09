@@ -53,7 +53,7 @@ unsafeWindow.Show = function (alldata = [], templates) {
 }
 unsafeWindow.JsMod = function (htmlurl, tmpWidth, tmpHeight) {
     htmlurl = getRandomUrl(htmlurl);
-    htmlurl = `https://${document.domain}` + htmlurl
+    htmlurl = `http://${document.domain}` + htmlurl
     var root = ""
     root += `<iframe src = ${htmlurl} height = "100%" width = "100%" style="border: medium none;"></iframe>`
     app.$Modal({
