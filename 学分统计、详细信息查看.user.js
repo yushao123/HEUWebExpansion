@@ -143,11 +143,11 @@ unsafeWindow.filters_all = function (course) {
 }
 unsafeWindow.filters_must = function (course) {
     //必修课
-    return course.课程属性 == "必修" & IsPass(course.成绩)
+    return course.课程属性 == "必修" & IsPass(course)
 }
 unsafeWindow.filters_zx = function (course) {
     //专选课
-    return hasStr(course.课程性质, "专业选修课") & IsPass(course.成绩)
+    return hasStr(course.课程性质, "专业选修课") & IsPass(course)
 }
 
 unsafeWindow.filters_A = function (course) {
