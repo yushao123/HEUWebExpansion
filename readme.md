@@ -164,7 +164,7 @@ unsafeWindow.filters_zb = function (course) {
 
 ```javascript
 unsafeWindow.filters_A_C = function (course) {
-    //专业必修课
+    //A-C类课程过滤器
     return filters_A(course) || filters_A(course) || filters_A(course) & IsPass(course) 
 }
 ```
