@@ -104,7 +104,7 @@ unsafeWindow.hasStr = function (str, subStr) {
 unsafeWindow.IsPass = function (course) {
     //方便的判断是否几个
     let mark = course.成绩
-    if (mark != "不合格") {
+    if (mark != "不合格" && mark != "缺考") {
         if (!isNaN(parseFloat(mark))) {
             if (parseFloat(mark) >= 60) {
                 return true
